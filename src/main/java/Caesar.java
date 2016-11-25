@@ -39,11 +39,13 @@ public class Caesar {
 
     static String magic(String s) {
         String noTanMagic = "";
-        int decalatge;
+        int decalatge = 'A';
         for (int i = 0; i < s.length(); i++) {
             for (int j = 0; j < 26; j++) {
-                if (s.charAt(i)  == 32 || s.charAt(i) < 65 || s.charAt(i) > 90) {
+                if (s.charAt(i) == 32 || s.charAt(i) < 65 || s.charAt(i) > 90) {
                     noTanMagic += s.charAt(i);
+                } else if (s.charAt(i) - decalatge == 0){ // Això no val per a res
+
                 }
             }
 
