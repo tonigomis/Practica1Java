@@ -1,13 +1,14 @@
 
 public class Caesar {
     static int alfa = 26;
+
     static String cypher(String s, int delta) {
         String xifrat = "";
         s = s.toUpperCase();
         int punter;
         delta = delta % alfa;
         for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == 32 || s.charAt(i) < 65 || s.charAt(i) > 90) {
+            if (s.charAt(i) == ' ' || s.charAt(i) < 'A' || s.charAt(i) > 'Z') {
                 xifrat += s.charAt(i);
             } else if (s.charAt(i) + delta > 'Z') {
                 punter = (s.charAt(i) + delta) - alfa;
@@ -24,7 +25,7 @@ public class Caesar {
         int punter;
         delta = delta % alfa;
         for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == 32 || s.charAt(i) < 65 || s.charAt(i) > 90) {
+            if (s.charAt(i) == ' ' || s.charAt(i) < 'A' || s.charAt(i) > 'Z') {
                 desxifrat += s.charAt(i);
             } else if (s.charAt(i) - delta > 'Z') {
                 punter = s.charAt(i) - delta - alfa;
@@ -42,13 +43,13 @@ public class Caesar {
     static String magic(String s) {
         int delta = 0;
         for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == 32) {
+            if (s.charAt(i) == ' ') {
                 i++;
-                if (s.charAt(i) - s.charAt(i+1) == 11){
+                if (s.charAt(i) - s.charAt(i + 1) == 11) {
                     delta = s.charAt(i) - 'L';
-                } else if (s.charAt(i) - s.charAt(i+1) == -7 ) {
+                } else if (s.charAt(i) - s.charAt(i + 1) == -7) {
                     delta = s.charAt(i) - 'E';
-                } else if (s.charAt(i) - s.charAt(i+1) == -1) {
+                } else if (s.charAt(i) - s.charAt(i + 1) == -1) {
                     delta = s.charAt(i) - 'D';
                 }
             }
