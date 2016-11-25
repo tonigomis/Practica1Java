@@ -1,6 +1,4 @@
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 
@@ -38,8 +36,6 @@ public class CaesarTest {
 
     @Test
     public void magic() throws Exception {
-        assertEquals("AAA",
-                Caesar.magic("BBB"));
 
         assertEquals("EL SECTOR SECUNDARI REPRESENTA EL 2,8% DE LA DEMANDA, MENTRE QUE EL 4,1% DEL TOTAL REGA ELS CAMPS",
                 Caesar.magic("NU BNLCXA BNLDWMJAR ANYANBNWCJ NU 2,8% MN UJ MNVJWMJ, VNWCAN ZDN NU 4,1% MNU CXCJU ANPJ NUB LJVYB"));

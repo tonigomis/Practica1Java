@@ -1,56 +1,58 @@
 
 public class Caesar {
+    static int alfa = 26;
     static String cypher(String s, int delta) {
         String xifrat = "";
         s = s.toUpperCase();
         int punter;
+        delta = delta % alfa;
         for (int i = 0; i < s.length(); i++) {
-            delta = delta % 26;
             if (s.charAt(i) == 32 || s.charAt(i) < 65 || s.charAt(i) > 90) {
                 xifrat += s.charAt(i);
             } else if (s.charAt(i) + delta > 'Z') {
-                punter = (s.charAt(i) + delta) - 26;
+                punter = (s.charAt(i) + delta) - alfa;
                 xifrat += (char) punter;
             } else {
                 xifrat += (char) (s.charAt(i) + delta);
             }
         }
-        s = xifrat;
-        return s;
+        return xifrat;
     }
 
     static String decypher(String s, int delta) {
         String desxifrat = "";
         int punter;
+        delta = delta % alfa;
         for (int i = 0; i < s.length(); i++) {
-            delta = delta % 26;
             if (s.charAt(i) == 32 || s.charAt(i) < 65 || s.charAt(i) > 90) {
                 desxifrat += s.charAt(i);
+            } else if (s.charAt(i) - delta > 'Z') {
+                punter = s.charAt(i) - delta - alfa;
+                desxifrat += (char) punter;
             } else if (s.charAt(i) - delta < 'A') {
-                punter = (s.charAt(i) - delta + 26);
+                punter = (s.charAt(i) - delta + alfa);
                 desxifrat += (char) punter;
             } else {
                 desxifrat += (char) (s.charAt(i) - delta);
             }
         }
-        s = desxifrat;
-        return s;
+        return desxifrat;
     }
 
     static String magic(String s) {
-        String noTanMagic = "";
-        int decalatge = 'A';
+        int delta = 0;
         for (int i = 0; i < s.length(); i++) {
-            for (int j = 0; j < 26; j++) {
-                if (s.charAt(i) == 32 || s.charAt(i) < 65 || s.charAt(i) > 90) {
-                    noTanMagic += s.charAt(i);
-                } else if (s.charAt(i) - decalatge == 0){ // Això no val per a res
-
+            if (s.charAt(i) == 32) {
+                i++;
+                if (s.charAt(i) - s.charAt(i+1) == 11){
+                    delta = s.charAt(i) - 'L';
+                } else if (s.charAt(i) - s.charAt(i+1) == -7 ) {
+                    delta = s.charAt(i) - 'E';
+                } else if (s.charAt(i) - s.charAt(i+1) == -1) {
+                    delta = s.charAt(i) - 'D';
                 }
             }
-
         }
-        s = noTanMagic;
-        return s;
+        return decypher(s, delta);
     }
 }
