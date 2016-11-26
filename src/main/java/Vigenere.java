@@ -57,11 +57,11 @@ public class Vigenere {
 
     static String normalitza(String s) {
         char caracter;
-        String codificat = "";
+        String normalitzat = "";
         for (int i = 0; i < s.length(); i++) {
             caracter = s.charAt(i);
             if (s.charAt(i) >= 65 && s.charAt(i) <= 90) {
-                codificat += caracter;
+                normalitzat += caracter;
                 continue;
             } else if (s.charAt(i) == ' ') {
                 caracter = ' ';
@@ -78,9 +78,9 @@ public class Vigenere {
             } else if (s.charAt(i) >= 249 && s.charAt(i) <= 252 || s.charAt(i) >= 217 && s.charAt(i) <= 220) {
                 caracter = 'U';
             }
-            codificat += caracter;
+            normalitzat += caracter;
         }
-        return codificat;
+        return normalitzat;
     }
 }
 
