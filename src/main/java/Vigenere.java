@@ -3,8 +3,8 @@
 public class Vigenere {
 
     static String encode(String s, String password) {
-        s = normalitza(s).toUpperCase();
-        password = normalitza(password).toUpperCase();
+        s = normalitza(s);
+        password = normalitza(password);
         String codificat = "";
         int punter;
         int j = 0;
@@ -22,8 +22,8 @@ public class Vigenere {
     }
 
     static String decode(String s, String password) {
-        s = normalitza(s).toUpperCase();
-        password = normalitza(password).toUpperCase();
+        s = normalitza(s);
+        password = normalitza(password);
         String decodificat = "";
         int punter;
         int j = 0;
@@ -41,17 +41,18 @@ public class Vigenere {
         return decodificat;
     }
 
+
+    static boolean esEspecial(char w) {
+        return (w < 65 || w > 90);
+    }
+
     static int passaNum(char c) {
         return c - 64;
     }
 
     static char passaChar(int r) {
-        if (r > 26) r %=  26;
-        return (char) (64 + r);
-    }
-
-    static boolean esEspecial(char w) {
-        return (w < 65 || w > 90);
+        if (r > 26) r %= 26;
+        return (char) (r + 64);
     }
 
     static String normalitza(String s) {
