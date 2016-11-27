@@ -6,7 +6,7 @@ public class Caesar {
         String xifrat = "";
         s = s.toUpperCase();
         int punter;
-        delta = delta % alfa;
+        delta %= alfa;
         for (int i = 0; i < s.length(); i++) {
             if (s.charAt(i) == ' ' || s.charAt(i) < 'A' || s.charAt(i) > 'Z') {
                 xifrat += s.charAt(i);
@@ -23,7 +23,7 @@ public class Caesar {
     static String decypher(String s, int delta) {
         String desxifrat = "";
         int punter;
-        delta = delta % alfa;
+        delta %= alfa;
         for (int i = 0; i < s.length(); i++) {
             if (s.charAt(i) == ' ' || s.charAt(i) < 'A' || s.charAt(i) > 'Z') {
                 desxifrat += s.charAt(i);
