@@ -15,12 +15,9 @@ public class Transposition {
                 t++;
             }
         }
-
         for (int i = 0; i < codifica[0].length; i++) {
-            for (int j = 0; j < codifica.length; j++) {
-                if (codifica[j][i] != '\u0000') {
-                    resultat += codifica[j][i];
-                }
+            for (char[] aCodifica : codifica) {
+                if (aCodifica[i] != '\u0000') resultat += aCodifica[i];
             }
         }
         return resultat;
