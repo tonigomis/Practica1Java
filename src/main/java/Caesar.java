@@ -1,4 +1,3 @@
-
 public class Caesar {
     static int alfa = 26;
     static String cypher(String s, int delta) {
@@ -61,7 +60,21 @@ public class Caesar {
         String st = normalitza(s);
         int valorTemporal = findMax(st);
         int delta = guessDelta(valorTemporal);
-        return decypher(s, delta);
+        st = decypher(s, delta);
+        if (!(st.contains("EL") || st.contains("LA") || st.contains("SE") || st.contains("DE") || st.contains("EN"))) {
+            delta = valorTemporal - 'A';
+            if (delta < 0) delta += alfa;
+            st = decypher(s, delta);
+        } else if (!(st.contains("EL") || st.contains("LA") || st.contains("SE") || st.contains("DE") || st.contains("EN"))) {
+            delta = valorTemporal - 'I';
+            if (delta < 0) delta += alfa;
+            st = decypher(s, delta);
+        } else if (!(st.contains("EL") || st.contains("LA") || st.contains("SE") || st.contains("DE") || st.contains("EN"))) {
+            delta = valorTemporal - 'S';
+            if (delta < 0) delta += alfa;
+            st = decypher(s, delta);
+        }
+        return st;
     }
 
     static char findMax(String s) {
@@ -75,10 +88,10 @@ public class Caesar {
         for (int j = 0; j < ocurrencies.length; j++) {
             if (ocurrencies[j] > major) {
                 major = ocurrencies[j];
-                num = j + 'A';
+                num = j;
             }
         }
-        findMax = (char) num;
+        findMax = (char) (num + 'A');
         return findMax;
     }
 
@@ -95,9 +108,6 @@ public class Caesar {
             caracter = s.charAt(i);
             if (s.charAt(i) >= 65 && s.charAt(i) <= 90) {
                 normalitzat += caracter;
-                continue;
-            } else if (s.charAt(i) == ' ') {
-                continue;
             } else if (s.charAt(i) >= 97 && s.charAt(i) <= 122) {
                 caracter -= 32;
             } else if (s.charAt(i) >= 224 && s.charAt(i) <= 230 || s.charAt(i) >= 192 && s.charAt(i) <= 198) {
