@@ -145,24 +145,31 @@ public class Caesar {
         return findMax;
     }
 
+    /* Aquest mètode avalua els possibles valors de delta en relació al major número d'ocurrències dels caràcters més
+    freqüents en llengua catalana, que són, per aquest ordre: 'E', 'A', 'I' i 'S'*/
     static String guessDelta(int valorTemporal, String s) {
+
+        // En primer lloc provam amb la lletra 'E', ja que és la més freqüent
         int delta = valorTemporal - 'E';
+
+        // Ens asseguram que el valor de delta no sigui negatiu
         if (delta < 0) delta += alfa;
+
+        // Cridam la funció de desxifrar amb el delta que hem determinat d'inici
         String st = decypher(s, delta);
+
+        /* Comprovam si al text desxifrat s'hi poden trobar combinacions de caràcters freqüents en català i, en cas
+        contrari, provam amb els altres caràcters freqüents de la llengua catalana */
         if (!(st.contains("EL") || st.contains("LA") || st.contains("SE") || st.contains("DE") || st.contains("EN"))) {
             delta = valorTemporal - 'A';
-            if (delta < 0) delta += alfa;
-            st = decypher(s, delta);
         } else if (!(st.contains("EL") || st.contains("LA") || st.contains("SE") || st.contains("DE") || st.contains("EN"))) {
             delta = valorTemporal - 'I';
-            if (delta < 0) delta += alfa;
-            st = decypher(s, delta);
         } else if (!(st.contains("EL") || st.contains("LA") || st.contains("SE") || st.contains("DE") || st.contains("EN"))) {
             delta = valorTemporal - 'S';
-            if (delta < 0) delta += alfa;
-            st = decypher(s, delta);
         }
-        return st;
+
+        // Retornam la funció de desxifrar aquest text, ara ja sí, amb el delta correcte segons el joc de proves
+        return decypher(s, delta);
     }
 
     static String normalitza(String s) {
