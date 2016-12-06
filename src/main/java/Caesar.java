@@ -172,15 +172,31 @@ public class Caesar {
         return decypher(s, delta);
     }
 
+    /* Aquesta funció avalua el contingut de l'String que li passam per paràmetre i el simpifica, ignorant els espais
+    en blanc i símbols de puntuació, passant les minúscules (si existeixen) a majúscules i convertint les vocals
+    accentuades en vocals majúscules i sense accents */
     static String normalitza(String s) {
+
+        // Declaram una variable char per emmagatzemar el caràcter a estudi
         char caracter;
+
+        // Declaram i inicialitzam en blanc una String buida on guardar el text normalitzat
         String normalitzat = "";
+
+        // Recorrem la cadena de text amb aquest bucle per convertir cada posició en el que necessitam
         for (int i = 0; i < s.length(); i++) {
             caracter = s.charAt(i);
+
+            // Si es tracta d'una lletra majúscula, l'afegim directament al nostre resultat
             if (s.charAt(i) >= 65 && s.charAt(i) <= 90) {
                 normalitzat += caracter;
+
+            // Si és una lletra minúscula, li restam 32 per passar-la a majúscula
             } else if (s.charAt(i) >= 97 && s.charAt(i) <= 122) {
                 caracter -= 32;
+
+            /* A partir d'aquí, consideram tots els caràcters especials que afecten les vocals i les convertim en la
+            seva majúscula genèrica */
             } else if (s.charAt(i) >= 224 && s.charAt(i) <= 230 || s.charAt(i) >= 192 && s.charAt(i) <= 198) {
                 caracter = 'A';
             } else if (s.charAt(i) >= 232 && s.charAt(i) <= 235 || s.charAt(i) >= 200 && s.charAt(i) <= 203) {
@@ -191,11 +207,17 @@ public class Caesar {
                 caracter = 'O';
             } else if (s.charAt(i) >= 249 && s.charAt(i) <= 252 || s.charAt(i) >= 217 && s.charAt(i) <= 220) {
                 caracter = 'U';
+
+            // Si no es compleix cap de les condicions anteriors, enviam el bucle cap al final
             } else {
                 continue;
             }
+
+            // Aquí incorporam el caràcter normalitzat al nostre resultat final
             normalitzat += caracter;
         }
+
+        // Retornam la String normalitzada per poder treballar-hi més còmodament en endavant
         return normalitzat;
     }
 }
