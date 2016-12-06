@@ -94,7 +94,7 @@ public class Caesar {
 
         /* Retornam el resultat de la funció guessDelta, on avaluam les diferents possibilitats de xifrat i en
         obtenir-ne una de correcta la desxifram */
-        return guessDelta(valorTemporal, s, st);
+        return guessDelta(valorTemporal, s);
     }
 
     // Cream un mètode de tipus char que afagant l'String s ens calcularà quin caràcter es repeteix més vegades
@@ -145,10 +145,10 @@ public class Caesar {
         return findMax;
     }
 
-    static String guessDelta(int valorTemporal, String s, String st) {
+    static String guessDelta(int valorTemporal, String s) {
         int delta = valorTemporal - 'E';
         if (delta < 0) delta += alfa;
-        st = decypher(s, delta);
+        String st = decypher(s, delta);
         if (!(st.contains("EL") || st.contains("LA") || st.contains("SE") || st.contains("DE") || st.contains("EN"))) {
             delta = valorTemporal - 'A';
             if (delta < 0) delta += alfa;
