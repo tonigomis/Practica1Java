@@ -172,7 +172,7 @@ public class Caesar {
         return decypher(s, delta);
     }
 
-    /* Aquesta funció avalua el contingut de l'String que li passam per paràmetre i el simpifica, ignorant els espais
+    /* Aquesta funció avalua el contingut de l'String que li passam per paràmetre i el simpifica, eliminant els espais
     en blanc i símbols de puntuació, passant les minúscules (si existeixen) a majúscules i convertint les vocals
     accentuades en vocals majúscules i sense accents */
     static String normalitza(String s) {
