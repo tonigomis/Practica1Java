@@ -22,7 +22,7 @@ public class Vigenere {
 
             /* Hem creat un mètode booleà anomenat esEspecial que ens retornarà vertader sempre que el caràcter a estudi
             estigui fora dels límits de 'A' a 'Z' a la taula ASCII. Quan esEspecial és vertader afegirem directament el
-            caràcter a la nostra String codificat */
+            caràcter a la nostra String codificat i tornarem a entrar al bucle */
             if (esEspecial(s.charAt(i))) {
                 codificat += s.charAt(i);
                 continue;
