@@ -162,22 +162,28 @@ public class Caesar {
 
         /* Comprovam si al text desxifrat s'hi poden trobar combinacions de caràcters freqüents en català i, en cas
         contrari, provam amb altres caràcters freqüents de la llengua catalana */
-        if (!(st.contains("EL") || st.contains("LA") || st.contains("DE") || st.contains("EN") || st.contains("ET") || st.contains("SI") || st.contains("NA"))) {
-            delta = valorTemporal - 'A';
-            setDelta(delta);
-            st = decypher(s, delta);
+        if (!(st.contains("EL") || st.contains("LA") || st.contains("DE") || st.contains("EN") || st.contains("ET"))) {
+            if (!(st.contains("SI") || st.contains("NA"))) {
+                delta = valorTemporal - 'A';
+                setDelta(delta);
+                st = decypher(s, delta);
+            }
         }
 
-        if (!(st.contains("EL") || st.contains("LA") || st.contains("DE") || st.contains("EN") || st.contains("ET") || st.contains("SI") || st.contains("NA"))) {
-            delta = valorTemporal - 'I';
-            setDelta(delta);
-            st = decypher(s, delta);
+        if (!(st.contains("EL") || st.contains("LA") || st.contains("DE") || st.contains("EN") || st.contains("ET"))) {
+            if (!(st.contains("SI") || st.contains("NA"))) {
+                delta = valorTemporal - 'I';
+                setDelta(delta);
+                st = decypher(s, delta);
+            }
         }
 
-        if (!(st.contains("EL") || st.contains("LA") || st.contains("DE") || st.contains("EN") || st.contains("ET") || st.contains("SI") || st.contains("NA"))) {
-            delta = valorTemporal - 'S';
-            setDelta(delta);
-            st = decypher(s, delta);
+        if (!(st.contains("EL") || st.contains("LA") || st.contains("DE") || st.contains("EN") || st.contains("ET"))) {
+            if (!(st.contains("SI") || st.contains("NA"))) {
+                delta = valorTemporal - 'S';
+                setDelta(delta);
+                st = decypher(s, delta);
+            }
         }
 
         // Retornam la funció de desxifrar aquest text, ara ja sí, amb el delta correcte segons el joc de proves
