@@ -1,5 +1,3 @@
-
-
 public class Vigenere {
     /* Declaram la constant estàtica alfa, que contindrà el número de lletres que composen l'alfabet que farem servir
     (26 en aquest cas), i que si és necessari pot ser modificada sense haver de retocar tot el codi */
@@ -20,7 +18,7 @@ public class Vigenere {
         String codificat = "";
 
         // Cream un bucle per recórrer tota la cadena de text i avaluar-ne les condicions
-        for (int i = 0, j = 0; i < s.length(); i++) {
+        for (int i = 0, contPass = 0; i < s.length(); i++) {
 
             /* Hem creat un mètode booleà anomenat esEspecial que ens retornarà vertader sempre que el caràcter a estudi
             estigui fora dels límits de 'A' a 'Z' a la taula ASCII. Quan esEspecial és vertader afegirem directament el
@@ -33,14 +31,14 @@ public class Vigenere {
             /* Si el caràcter no és especial l'afegim al nostre resultat després de sumar el valor alfabètic (ASCII - 64)
             del caràcter de s i password que corresponen, fent mòdul del resultat amb alfa si el seu valor és major que
             26 i sumant-li 64 per tornar a tenir el valor ASCII correcte */
-            codificat += passaChar((passaNum(s.charAt(i)) + passaNum(password.charAt(j))));
+            codificat += passaChar((passaNum(s.charAt(i)) + passaNum(password.charAt(contPass))));
 
-            // Incrementam el comptador j, que és el que feim servir per control·lar la llargada de la clau
-            j++;
+            // Incrementam el comptador contPass, que és el que feim servir per control·lar la llargada de la clau
+            contPass++;
 
-            /* Feim reset al comptador j si aquest arriba a la seva darrera posició perquè torni a començar per continuar
+            /* Feim reset al comptador contPass si aquest arriba a la seva darrera posició perquè torni a començar per continuar
             codificant la String s */
-            if (j == password.length()) j = 0;
+            if (contPass == password.length()) contPass = 0;
         }
 
         // Retornam l'String codificat amb el resultat del nostre xifrat
@@ -60,8 +58,9 @@ public class Vigenere {
         // Cream una String decodificat per guardar el resultat final
         String decodificat = "";
 
-        // Cream un bucle per recórrer tota la cadena de text i avaluar-ne les condicions
-        for (int i = 0, j = 0; i < s.length(); i++) {
+        /* Cream un bucle per recórrer tota la cadena de text i avaluar-ne les condicions, declaram un comptador per a
+        la posició de la password */
+        for (int i = 0, contPass = 0; i < s.length(); i++) {
 
             /* Amb el mètode esEspecial afegirem directament el caràcter a la nostra String decodificat quan es
             compleixin les condicions necessàries*/
@@ -70,13 +69,13 @@ public class Vigenere {
                 continue;
             }
             /* El mateix que en el mètode anterior, però restant els valors de s i de password */
-            decodificat += passaChar(passaNum(s.charAt(i)) - passaNum(password.charAt(j)));
+            decodificat += passaChar(passaNum(s.charAt(i)) - passaNum(password.charAt(contPass)));
 
             // Incrementam contador de password
-            j++;
+            contPass++;
 
             // Posam a 0 el contador quan arribam a la longitud del password
-            if (j == password.length()) j = 0;
+            if (contPass == password.length()) contPass = 0;
         }
 
         // Retornam el missatge desxifrat en la nostra String decodificat
@@ -96,15 +95,15 @@ public class Vigenere {
     }
 
     /* La funció passaChar avalua si el número que esteim considerant és major que alfa (si és així, li fa el mòdul per
-    obtenir el valor correcte) o si és igual o inferior a 0 (li suma alfa). Ens retorna el caràcter resultant de sumar 64 al
-    número analitzat */
+    obtenir el valor correcte) o si és igual o inferior a 0 (li suma alfa). Ens retorna el caràcter resultant de sumar
+    64 al número analitzat */
     static char passaChar(int r) {
         if (r > alfa) r %= alfa;
         if (r <= 0) r += alfa;
         return (char) (r + 64);
     }
 
-    /* Aquesta funció avalua el contingut de l'String que li passam per paràmetre i el simpifica, ignorant els espais
+    /* Aquesta funció avalua el contingut de l'String que li passam per paràmetre i el simpifica, transcrivint espais
     en blanc i símbols de puntuació, passant les minúscules (si existeixen) a majúscules i convertint les vocals
     accentuades en vocals majúscules i sense accents */
     static String normalitza(String s) {

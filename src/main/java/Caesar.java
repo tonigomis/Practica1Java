@@ -16,6 +16,7 @@ public class Caesar {
 
         /* Feim el mòdul de la variable delta amb alfa, per obtenir el delta correcte en cas que aquest sigui més gran
         que l'alfabet que feim servir */
+        while (delta < 0) delta += alfa;
         delta %= alfa;
 
         /* Cream un bucle que recorrerà l'String que hem rebut per paràmetres, n'avaluarà el contingut i l'incorporarà
@@ -54,6 +55,7 @@ public class Caesar {
 
         /* Feim el mòdul de la variable delta amb alfa, per obtenir el delta correcte en cas que aquest sigui més gran
         que l'alfabet que feim servir */
+        while (delta <= 0) delta += alfa;
         delta %= alfa;
 
         /* Cream un bucle que recorrerà l'String que hem rebut per paràmetres, n'avaluarà el contingut i l'incorporarà
@@ -124,16 +126,16 @@ public class Caesar {
         int major = ocurrencies[0];
 
         // Cream un bucle per recórrer tota l'array i trobar el valor de comptador més gran que hem obtingut
-        for (int j = 0; j < ocurrencies.length; j++) {
+        for (int pos = 0; pos < ocurrencies.length; pos++) {
 
             /* Amb aquest a condició comparam el valor de la posició on ens trobam amb el valor de major, i els
              intercanviam si la condició es compleix */
-            if (ocurrencies[j] > major) {
-                major = ocurrencies[j];
+            if (ocurrencies[pos] > major) {
+                major = ocurrencies[pos];
 
                 /* Aquí guardam la posició de l'array on es troba el caràcter que més vegades es repeteix al nostre codi
                 xifrat, que és en realitat el que més ens interessa saber a l'hora d'endevinar la clau */
-                num = j;
+                num = pos;
             }
         }
 
@@ -153,23 +155,40 @@ public class Caesar {
         int delta = valorTemporal - 'E';
 
         // Ens asseguram que el valor de delta no sigui negatiu
-        if (delta < 0) delta += alfa;
+        setDelta(delta);
 
         // Cridam la funció de desxifrar amb el delta que hem determinat d'inici
         String st = decypher(s, delta);
 
         /* Comprovam si al text desxifrat s'hi poden trobar combinacions de caràcters freqüents en català i, en cas
-        contrari, provam amb els altres caràcters freqüents de la llengua catalana */
-        if (!(st.contains("EL") || st.contains("LA") || st.contains("SE") || st.contains("DE") || st.contains("EN"))) {
+        contrari, provam amb altres caràcters freqüents de la llengua catalana */
+        if (!(st.contains("EL") || st.contains("LA") || st.contains("DE") || st.contains("EN") || st.contains("ET") || st.contains("SI") || st.contains("NA"))) {
             delta = valorTemporal - 'A';
-        } else if (!(st.contains("EL") || st.contains("LA") || st.contains("SE") || st.contains("DE") || st.contains("EN"))) {
+            setDelta(delta);
+            st = decypher(s, delta);
+        }
+
+        if (!(st.contains("EL") || st.contains("LA") || st.contains("DE") || st.contains("EN") || st.contains("ET") || st.contains("SI") || st.contains("NA"))) {
             delta = valorTemporal - 'I';
-        } else if (!(st.contains("EL") || st.contains("LA") || st.contains("SE") || st.contains("DE") || st.contains("EN"))) {
+            setDelta(delta);
+            st = decypher(s, delta);
+        }
+
+        if (!(st.contains("EL") || st.contains("LA") || st.contains("DE") || st.contains("EN") || st.contains("ET") || st.contains("SI") || st.contains("NA"))) {
             delta = valorTemporal - 'S';
+            setDelta(delta);
+            st = decypher(s, delta);
         }
 
         // Retornam la funció de desxifrar aquest text, ara ja sí, amb el delta correcte segons el joc de proves
-        return decypher(s, delta);
+        return st;
+    }
+
+    // Amb aquest mètode ens asseguram que el valor de delta sempre estigui dins el rang de l'alfabet
+    static int setDelta(int delta) {
+        while (delta < 0) delta += alfa;
+        delta %= alfa;
+        return delta;
     }
 
     /* Aquesta funció avalua el contingut de l'String que li passam per paràmetre i el simpifica, eliminant els espais
@@ -190,8 +209,9 @@ public class Caesar {
             // Si es tracta d'una lletra majúscula, l'afegim directament al nostre resultat
             if (s.charAt(i) >= 65 && s.charAt(i) <= 90) {
                 normalitzat += caracter;
+                continue;
 
-            // Si és una lletra minúscula, li restam 32 per passar-la a majúscula
+                // Si és una lletra minúscula, li restam 32 per passar-la a majúscula
             } else if (s.charAt(i) >= 97 && s.charAt(i) <= 122) {
                 caracter -= 32;
 
@@ -208,11 +228,10 @@ public class Caesar {
             } else if (s.charAt(i) >= 249 && s.charAt(i) <= 252 || s.charAt(i) >= 217 && s.charAt(i) <= 220) {
                 caracter = 'U';
 
-            // Si no es compleix cap de les condicions anteriors, enviam el bucle cap al final
+                // Si no es compleix cap de les condicions anteriors, enviam el fil cap al principi
             } else {
                 continue;
             }
-
             // Aquí incorporam el caràcter normalitzat al nostre resultat final
             normalitzat += caracter;
         }
@@ -222,7 +241,7 @@ public class Caesar {
     }
 }
 
-    /* Aquesta era la versió original de la funció magic abans d'intentar-la amb un càlcul estadístic d'ocurrències */
+    /* Aquesta era la versió original de la funció magic abans d'intentar-la amb un càlcul d'ocurrències */
 /*    static String magic(String s) {
         int delta = 0;
         for (int i = 0; i < s.length(); i++) {

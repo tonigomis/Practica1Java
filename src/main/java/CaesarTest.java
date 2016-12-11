@@ -5,11 +5,17 @@ import static org.junit.Assert.assertEquals;
 public class CaesarTest {
     @Test
     public void cypher() throws Exception {
+
+        assertEquals("", Caesar.cypher("", 0));
+        assertEquals("A", Caesar.cypher("C", -2));
+        assertEquals("ABC", Caesar.cypher("ABC", 0));
+        assertEquals("ZAB", Caesar.cypher("ABC", -1));
         assertEquals("BCD", Caesar.cypher("ABC", 1));
         assertEquals("BCD", Caesar.cypher("abc", 1));
         assertEquals("YZA", Caesar.cypher("XYZ", 1));
         assertEquals("AAA", Caesar.cypher("ZZZ", 1));
 
+        assertEquals("B", Caesar.cypher("A", -25));
         assertEquals("Z", Caesar.cypher("A", 25));
         assertEquals("KLM", Caesar.cypher("ABC", 10));
         assertEquals("WXY", Caesar.cypher("ABC", 100));
@@ -23,9 +29,14 @@ public class CaesarTest {
 
     @Test
     public void decypher() throws Exception {
+        assertEquals("", Caesar.decypher("", 0));
+        assertEquals("CDE", Caesar.decypher("BCD", -1));
+        assertEquals("BCD", Caesar.decypher("BCD", 0));
         assertEquals("ABC", Caesar.decypher("BCD", 1));
         assertEquals("ZAB", Caesar.decypher("ABC", 1));
         assertEquals("A", Caesar.decypher("Z", 25));
+        assertEquals("A", Caesar.decypher("B", -25));
+        assertEquals("A", Caesar.decypher("B", -51));
         assertEquals("ELS PATRONS DE CONSUM D’ABANS DE LA CRISI RENEIXEN, SEGONS ELS EXPERTS, I EL NADAL EN SERÀ LA PROVA, AMB L’INGREDIENT AFEGIT DEL BOOM DEL COMERÇ ELECTRÒNIC",
                 Caesar.decypher("QXE BMFDAZE PQ OAZEGY P’MNMZE PQ XM ODUEU DQZQUJQZ, EQSAZE QXE QJBQDFE, U QX ZMPMX QZ EQDÀ XM BDAHM, MYN X’UZSDQPUQZF MRQSUF PQX NAAY PQX OAYQDÇ QXQOFDÒZUO", 12));
 
@@ -36,7 +47,6 @@ public class CaesarTest {
 
     @Test
     public void magic() throws Exception {
-
         assertEquals("EL SECTOR SECUNDARI REPRESENTA EL 2,8% DE LA DEMANDA, MENTRE QUE EL 4,1% DEL TOTAL REGA ELS CAMPS",
                 Caesar.magic("NU BNLCXA BNLDWMJAR ANYANBNWCJ NU 2,8% MN UJ MNVJWMJ, VNWCAN ZDN NU 4,1% MNU CXCJU ANPJ NUB LJVYB"));
 
@@ -48,6 +58,9 @@ public class CaesarTest {
 
         assertEquals("NA MARIA FA AMPOLLES COM QUI BUFA",
                 Caesar.magic("QD PDULD ID DPSROOHV FRP TXL EXID"));
+
+        assertEquals("SI SAPS QUE ET CONVE, SABRAS QUE HAS DE PENSAR",
+                Caesar.magic("YO YGVY WAK KZ IUTBK, YGHXGY WAK NGY JK VKTYGX"));
     }
 
 }
