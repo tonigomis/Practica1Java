@@ -161,7 +161,8 @@ public class Caesar {
         String st = decypher(s, delta);
 
         /* Comprovam si al text desxifrat s'hi poden trobar combinacions de caràcters freqüents en català i, en cas
-        contrari, provam amb altres caràcters freqüents de la llengua catalana */
+        contrari, provam amb altres caràcters freqüents de la llengua catalana. Condició dividida en dos if per a
+        facilitar-ne la lectura */
         if (!(st.contains("EL") || st.contains("LA") || st.contains("DE") || st.contains("EN") || st.contains("ET"))) {
             if (!(st.contains("SI") || st.contains("NA"))) {
                 delta = valorTemporal - 'A';
@@ -185,7 +186,6 @@ public class Caesar {
                 st = decypher(s, delta);
             }
         }
-
         // Retornam la funció de desxifrar aquest text, ara ja sí, amb el delta correcte segons el joc de proves
         return st;
     }
@@ -241,7 +241,6 @@ public class Caesar {
             // Aquí incorporam el caràcter normalitzat al nostre resultat final
             normalitzat += caracter;
         }
-
         // Retornam la String normalitzada per poder treballar-hi més còmodament en endavant
         return normalitzat;
     }
