@@ -16,8 +16,7 @@ public class Caesar {
 
         /* Feim el mòdul de la variable delta amb alfa, per obtenir el delta correcte en cas que aquest sigui més gran
         que l'alfabet que feim servir */
-        while (delta < 0) delta += alfa;
-        delta %= alfa;
+        delta = setDelta(delta);
 
         /* Cream un bucle que recorrerà l'String que hem rebut per paràmetres, n'avaluarà el contingut i l'incorporarà
         a la nostra String xifrat com a resultat */
@@ -54,8 +53,7 @@ public class Caesar {
 
         /* Feim el mòdul de la variable delta amb alfa, per obtenir el delta correcte en cas que aquest sigui més gran
         que l'alfabet que feim servir */
-        while (delta <= 0) delta += alfa;
-        delta %= alfa;
+        delta = setDelta(delta);
 
         /* Cream un bucle que recorrerà l'String que hem rebut per paràmetres, n'avaluarà el contingut i l'incorporarà
         a la nostra String xifrat com a resultat */
