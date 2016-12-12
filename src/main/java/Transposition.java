@@ -79,7 +79,6 @@ public class Transposition {
                 contador++;
             }
         }
-
         // Retornam la nostra array codificada per transposició
         return codifica;
     }
@@ -102,7 +101,7 @@ public class Transposition {
 
                 /* Aquesta condició és la que determina si esteim en una casella vàlida. En cas afirmatiu, hi guardam el
                 caràcter. En cas contrari, a la casella hi va un nul. */
-                if (!(y == fila - 1 && x > (dim - 1) - (dim * fila - s.length()))) {
+                if (y != fila - 1 || x <= (dim - 1) - (dim * fila - s.length())) {
                     decodifica[y][x] = s.charAt(contador);
                     contador++;
                 } else {
@@ -110,43 +109,63 @@ public class Transposition {
                 }
             }
         }
-
         // Retornam la nostra array decodificada per transposició
         return decodifica;
     }
 
     /* Aquest mètode agafa com a paràmetres String s que conté el missatge xifrat, l'int dim que és en realitat el
     key.length() i la String key que conté la clau per desxifrar. És diferent de l'altre mètode per desxifrar perquè ha
-    de tenir en compte que el missatge està desordenat segons la clau */
+    de tenir en compte que el missatge està desordenat segons la clau, però en essència és molt similar en el seu
+    funcionament. */
     static char[][] decypherUnsortedToArray(String s, int dim, String key) {
+
+        // Cream una array per guardar els caràcters de la clau
         char[] clau = key.toCharArray();
+
+        // Ordenam aquesta array alfabèticament
         Arrays.sort(clau);
+
+        // Cream un array per guardar l'ordre de la clau
         int[] ordre = new int[key.length()];
-        int[] ordreInicial = new int[key.length()];
+
+        // Amb aquest bucle recorrem la clau i en guardam l'ordre a l'array ordre. Després n'esborram els caràcters usats
         for (int i = 0; i < key.length(); i++) {
             for (int contador = 0; contador < key.length(); contador++) {
                 if (key.charAt(i) == clau[contador]) {
-                    ordre[i] = contador;
-                    clau[contador] = 0;
-                    ordreInicial[contador] = i;
+                    ordre[contador] = i;
+                    clau[contador] = '\u0000';
                     break;
                 }
             }
         }
 
+        // Calculam el número de files que ha de tenir la nostra matiu resultat
         int fila = (int) (Math.ceil(s.length() / (double) dim));
+
+        // Cream la matriu amb els valors de fila i columna donats
         char[][] decodifica = new char[fila][dim];
+
+        // Declaram un comptador de posició que controlarà a quin punt de l'String ens trobam
         int posicio = 0;
+
+        // Recorrem l'array de dreta a esquerra i de dalt a baix
         for (int x = 0; x < decodifica[0].length; x++) {
             for (int y = 0; y < decodifica.length; y++) {
-                if (!((y == fila - 1) && (ordreInicial[x] >= key.length() - (dim * fila - s.length())))) {
+
+                /* Si no ens trobam en una posició nul·la, afegim el caràcter determinat per posició al seu lloc en
+                l'array decodifica*/
+                if (y != fila - 1 || ordre[x] < key.length() - (dim * fila - s.length())) {
                     decodifica[y][x] = s.charAt(posicio);
+
+                    // Incrementam el valor de posició cada vegada que escrivim un caràcter del missatge en l'array
                     posicio++;
                 } else {
+                    // Quan no es dóna la condició anterior, posam un nul a la posició donada
                     decodifica[y][x] = '\u0000';
                 }
             }
         }
+        // Retornam l'array decodifica llest per a l'extracció
         return decodifica;
     }
 
@@ -190,7 +209,6 @@ public class Transposition {
             }
             contador++;
         }
-
         // Retornam l'array xifrat amb el resultat de desordenar
         return xifrat;
     }
@@ -231,7 +249,6 @@ public class Transposition {
                 desxifrat[y][x] = decodifica[y][ordre[x]];
             }
         }
-
         // Retornam l'array desxifrat transposat per a la seva extracció
         return desxifrat;
     }
@@ -251,7 +268,6 @@ public class Transposition {
                 if (aCodifica[i] != '\u0000') resultat += aCodifica[i];
             }
         }
-
         // Retornam l'String resultat completat per a la seva comparació amb el joc de proves
         return resultat;
     }
