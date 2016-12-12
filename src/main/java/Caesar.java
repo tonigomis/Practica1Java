@@ -41,7 +41,6 @@ public class Caesar {
                 xifrat += (char) (s.charAt(i) + delta);
             }
         }
-
         // Retornam la String xifrat, que compararem al joc de proves per determinar si el resultat és correcte
         return xifrat;
     }
@@ -77,7 +76,6 @@ public class Caesar {
                 desxifrat += (char) (s.charAt(i) - delta);
             }
         }
-
         // Retornam la String desxifrat per fer la comparació al joc de proves
         return desxifrat;
     }
@@ -101,9 +99,6 @@ public class Caesar {
 
     // Cream un mètode de tipus char que afagant l'String s ens calcularà quin caràcter es repeteix més vegades
     static char findMax(String s) {
-
-        // Declaram una variable de tipus char anomenada findMax on guardarem el resultat del mètode
-        char findMax;
 
         /* Declaram i inicialitzam a tamany d'alfa una array d'enters anomenada ocurrencies on es guardarà un comptador
         de repeticions de tots els caràcters de la cadena*/
@@ -138,13 +133,9 @@ public class Caesar {
                 num = pos;
             }
         }
-
-        /* Assignam a la variable findMax el resultat de sumar 'A' (perquè torni a tenir el valor de la lletra que li
-         correspon, i no el de la posició a l'array) a la posició més repetida, convertida en un char */
-        findMax = (char) (num + 'A');
-
-        // Retornam aquest caràcter, que serà el valorTemporal
-        return findMax;
+        /* Retornam el resultat de sumar 'A' (perquè torni a tenir el valor de la lletra que li correspon, i no el de la
+        posició a l'array) a la posició més repetida, convertida en un char. Això serà el valorTemporal */
+        return (char) (num + 'A');
     }
 
     /* Aquest mètode avalua els possibles valors de delta en relació al major número d'ocurrències dels caràcters més
@@ -160,8 +151,8 @@ public class Caesar {
         // Cridam la funció de desxifrar amb el delta que hem determinat d'inici
         String st = decypher(s, delta);
 
-        /* Comprovam si al text desxifrat s'hi poden trobar combinacions de caràcters freqüents en català i, en cas
-        contrari, provam amb altres caràcters freqüents de la llengua catalana. Condició dividida en dos if per a
+        /* Comprovam si al text desxifrat s'hi poden trobar alguns dígrafs freqüents en català i, en cas contrari,
+        provam amb altres caràcters freqüents de la llengua catalana. Condició dividida en dos if per a
         facilitar-ne la lectura */
         if (!(st.contains("EL") || st.contains("LA") || st.contains("DE") || st.contains("EN") || st.contains("ET"))) {
             if (!(st.contains("SI") || st.contains("NA"))) {

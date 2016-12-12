@@ -59,6 +59,9 @@ public class CaesarTest {
         assertEquals("NA MARIA FA AMPOLLES COM QUI BUFA",
                 Caesar.magic("QD PDULD ID DPSROOHV FRP TXL EXID"));
 
+        assertEquals("SI, SI, SI, LA COPA JA ES AQUI",
+                Caesar.magic("TJ, TJ, TJ, MB DPQB KB FT BRVJ"));
+
         assertEquals("SI SAPS QUE ET CONVE, SABRAS QUE HAS DE PENSAR",
                 Caesar.magic("YO YGVY WAK KZ IUTBK, YGHXGY WAK NGY JK VKTYGX"));
     }
