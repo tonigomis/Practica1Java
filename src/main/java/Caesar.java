@@ -151,8 +151,8 @@ public class Caesar {
         // Cridam la funció de desxifrar amb el delta que hem determinat d'inici
         String st = decypher(s, delta);
 
-        /* Comprovam si al text desxifrat s'hi poden trobar alguns dígrafs freqüents en català i, en cas contrari,
-        provam amb altres caràcters freqüents de la llengua catalana. Condició dividida en dos if per a
+        /* Comprovam si al text desxifrat s'hi poden trobar algunes combinacions de dos caràcters freqüents en català i,
+        en cas contrari, provam amb altres caràcters freqüents de la llengua catalana. Condició dividida en dos if per a
         facilitar-ne la lectura */
         if (!(st.contains("EL") || st.contains("LA") || st.contains("DE") || st.contains("EN") || st.contains("ET"))) {
             if (!(st.contains("SI") || st.contains("NA"))) {
