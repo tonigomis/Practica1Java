@@ -50,7 +50,7 @@ public class Vigenere {
                 /* Si el caràcter no és especial l'afegim al nostre resultat després de sumar el valor alfabètic (ASCII - 64)
                 del caràcter de s i password que corresponen, fent mòdul del resultat amb alfa si el seu valor és major que
                 26 i sumant-li 64 per tornar a tenir el valor ASCII correcte */
-                resultat += passaChar((passaNum(s.charAt(i)) + passaNum(password.charAt(contPass))));
+                resultat += passaChar(passaNum(s.charAt(i)) + passaNum(password.charAt(contPass)));
             } else {
                 /* El mateix que a la sentència anterior, però restant els valors de s i de password ja que esteim
                 decodificant */
