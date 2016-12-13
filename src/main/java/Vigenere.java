@@ -4,9 +4,25 @@ public class Vigenere {
     static final int alfa = 26;
 
     /* En aquesta primera funció hem de codificar un String s que ens passen per paràmetre utilitzant una substitució
-    polialfabètica que ens ve donada per una clau (String password) */
+    polialfabètica que ens ve donada per una clau (String password). Després d'haver desenvolupat tot el mètode he optat
+    per centralitzar tota l'operació en un sol mètode anomenat solve, que serà el que retornarem aquí amb l'String s,
+    l'String password i un valor booleà vertader */
     static String encode(String s, String password) {
+        return solve(s, password, true);
+    }
 
+    /* En aquesta segona funció hem de decodificar un String s que ens passen per paràmetre utilitzant una substitució
+    polialfabètica que ens ve donada per una clau (String password). Després d'haver desenvolupat tot el mètode he optat
+    per centralitzar tota l'operació en un sol mètode anomenat solve, que serà el que retornarem aquí amb l'String s,
+    l'String password i un valor booleà fals */
+    static String decode(String s, String password) {
+        return solve(s, password, false);
+    }
+
+    /* La funció solve agafa com a paràmetres String s, que conté el missatge original, String password, que conté la
+    clau, i un booleà whatToDo que determina si esteim codificant o decodificant. Aquest mètode fa ara la tasca que
+    feien la funció encode i decode d'aquesta classe */
+    static String solve(String s, String password, boolean whatToDo) {
         /* El primer de tot, normalitzam la cadena de text a xifrar per treballar-hi més còmodament (Veure explicació
         del mètode al final de la classe) */
         s = normalitza(s);
@@ -14,25 +30,32 @@ public class Vigenere {
         // Feim el mateix amb la password a fi d'uniformitzar els caràcters amb què hem de treballar
         password = normalitza(password);
 
-        // Declaram una String buida per guardar el resultat obtingut
-        String codificat = "";
+        //Declaram una String buida per guardar el resultat obtingut
+        String resultat = "";
 
-        // Cream un bucle per recórrer tota la cadena de text i avaluar-ne les condicions
+        /* Cream un bucle per recórrer tota la cadena de text i avaluar-ne les condicions, declaram un comptador per a
+        la posició de la password */
         for (int i = 0, contPass = 0; i < s.length(); i++) {
 
             /* Hem creat un mètode booleà anomenat esEspecial que ens retornarà vertader sempre que el caràcter a estudi
             estigui fora dels límits de 'A' a 'Z' a la taula ASCII. Quan esEspecial és vertader afegirem directament el
             caràcter a la nostra String codificat i tornarem a entrar al bucle */
             if (esEspecial(s.charAt(i))) {
-                codificat += s.charAt(i);
+                resultat += s.charAt(i);
                 continue;
             }
-
-            /* Si el caràcter no és especial l'afegim al nostre resultat després de sumar el valor alfabètic (ASCII - 64)
-            del caràcter de s i password que corresponen, fent mòdul del resultat amb alfa si el seu valor és major que
-            26 i sumant-li 64 per tornar a tenir el valor ASCII correcte */
-            codificat += passaChar((passaNum(s.charAt(i)) + passaNum(password.charAt(contPass))));
-
+            /* Aquí determinam si esteim codificant o decodificant, segons el valor booleà que li passam a la funció
+            encode (true) i la funció decode (false) */
+            if (whatToDo) {
+                /* Si el caràcter no és especial l'afegim al nostre resultat després de sumar el valor alfabètic (ASCII - 64)
+                del caràcter de s i password que corresponen, fent mòdul del resultat amb alfa si el seu valor és major que
+                26 i sumant-li 64 per tornar a tenir el valor ASCII correcte */
+                resultat += passaChar((passaNum(s.charAt(i)) + passaNum(password.charAt(contPass))));
+            } else {
+                /* El mateix que a la sentència anterior, però restant els valors de s i de password ja que esteim
+                decodificant */
+                resultat += passaChar(passaNum(s.charAt(i)) - passaNum(password.charAt(contPass)));
+            }
             // Incrementam el comptador contPass, que és el que feim servir per control·lar la llargada de la clau
             contPass++;
 
@@ -40,46 +63,7 @@ public class Vigenere {
             codificant la String s */
             if (contPass == password.length()) contPass = 0;
         }
-
-        // Retornam l'String codificat amb el resultat del nostre xifrat
-        return codificat;
-    }
-
-    /* En aquesta segona funció hem de decodificar un String s que ens passen per paràmetre utilitzant una substitució
-    polialfabètica que ens ve donada per una clau (String password) */
-    static String decode(String s, String password) {
-
-        /* Com al mètode invers, normalitzam la cadena de text a xifrar per treballar-hi més còmodament */
-        s = normalitza(s);
-
-        // Feim el mateix amb la password
-        password = normalitza(password);
-
-        // Cream una String decodificat per guardar el resultat final
-        String decodificat = "";
-
-        /* Cream un bucle per recórrer tota la cadena de text i avaluar-ne les condicions, declaram un comptador per a
-        la posició de la password */
-        for (int i = 0, contPass = 0; i < s.length(); i++) {
-
-            /* Amb el mètode esEspecial afegirem directament el caràcter a la nostra String decodificat quan es
-            compleixin les condicions necessàries*/
-            if (esEspecial(s.charAt(i))) {
-                decodificat += s.charAt(i);
-                continue;
-            }
-            /* El mateix que en el mètode anterior, però restant els valors de s i de password */
-            decodificat += passaChar(passaNum(s.charAt(i)) - passaNum(password.charAt(contPass)));
-
-            // Incrementam contador de password
-            contPass++;
-
-            // Posam a 0 el contador quan arribam a la longitud del password
-            if (contPass == password.length()) contPass = 0;
-        }
-
-        // Retornam el missatge desxifrat en la nostra String decodificat
-        return decodificat;
+        return resultat;
     }
 
     /* La funció booleana esEspecial té com a única funció retornar-nos vertader si el caràcter a avaluar està fora del
