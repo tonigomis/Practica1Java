@@ -44,18 +44,15 @@ public class Vigenere {
                 resultat += s.charAt(i);
                 continue;
             }
+
             /* Aquí determinam si esteim codificant o decodificant, segons el valor booleà que li passam a la funció
-            encode (true) i la funció decode (false) */
-            if (whatToDo) {
-                /* Si el caràcter no és especial l'afegim al nostre resultat després de sumar el valor alfabètic (ASCII - 64)
-                del caràcter de s i password que corresponen, fent mòdul del resultat amb alfa si el seu valor és major que
-                26 i sumant-li 64 per tornar a tenir el valor ASCII correcte */
-                resultat += passaChar(passaNum(s.charAt(i)) + passaNum(password.charAt(contPass)));
-            } else {
-                /* El mateix que a la sentència anterior, però restant els valors de s i de password ja que esteim
-                decodificant */
-                resultat += passaChar(passaNum(s.charAt(i)) - passaNum(password.charAt(contPass)));
-            }
+            encode (true) i la funció decode (false). Si el caràcter no és especial l'afegim al resultat després de
+            sumar el valor alfabètic (ASCII - 64) del caràcter de s i password que corresponen, fent mòdul del resultat
+            amb alfa si el seu valor és major que 26 i sumant-li 64 per tornar a tenir el valor ASCII correcte. Si
+            esteim decodificant, restam els valors de s i de password*/
+            resultat += (whatToDo) ? passaChar(passaNum(s.charAt(i)) + passaNum(password.charAt(contPass))) :
+                    passaChar(passaNum(s.charAt(i)) - passaNum(password.charAt(contPass)));
+
             // Incrementam el comptador contPass, que és el que feim servir per control·lar la llargada de la clau
             contPass++;
 
